@@ -1,0 +1,16 @@
+---
+- name: Enable repos with additional developer tools
+  command: >
+    subscription-manager repos
+    --enable rhel-server-rhscl-7-rpms
+
+- name: Update yum`s cache
+  command: yum -y makecache
+
+- name: Install Python3.6 SCL
+  yum:
+    name: rh-python36
+    state: present
+
+- name: SCL enable
+  command: scl enable rh-python36 bash
