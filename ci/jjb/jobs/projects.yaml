@@ -44,6 +44,12 @@
     jobs:
     - pulp-{build_version}-dev-{os}
 
+- project:
+    name: pulp-3-devel
+    os:
+    - rhel7
+    jobs:
+    - pulp-3-devel-{os}
 
 - project:
     name: disk-image-builder-base
