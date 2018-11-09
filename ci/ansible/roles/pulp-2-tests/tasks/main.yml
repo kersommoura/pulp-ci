@@ -85,6 +85,12 @@
     name: pytest
     state: present
 
+- name: Install pytest-random-order
+  pip:
+    virtualenv: '{{ ansible_user_dir }}/.virtualenvs/pulp-2-tests'
+    name: pytest-random-order
+    state: present
+
 - name: Create a Pulp Smash configuration directory
   file:
     path: '{{ ansible_user_dir }}/.config/pulp_smash'

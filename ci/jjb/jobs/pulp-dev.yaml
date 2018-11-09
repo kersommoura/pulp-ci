@@ -1,11 +1,14 @@
 - job-template:
-    name: 'pulp-{build_version}-dev-{os}'
+    name: 'pulp-{build_version}-kmo-{os}'
     node: '{os}-os'
     properties:
         - qe-ownership
         - discard-old-builds
     scm:
-        - pulp-ci-github
+      - git:
+          url: https://github.com/kersommoura/pulp-ci.git
+          branches:
+            - random_tests
     wrappers:
         - config-file-provider:
             files:
