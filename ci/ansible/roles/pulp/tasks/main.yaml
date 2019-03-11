@@ -4,9 +4,14 @@
   shell: cat /proc/sys/crypto/fips_enabled
   register: fips_state
 
-- name: Set the repo_priority based on fips_state 
+- name: Install yum-plugin-priorities
+  package:
+    name: yum-plugin-priorities
+    state: present
+
+- name: Set the repo_priority
   set_fact:
-    repo_priority: "{{  fips_priority if fips_state.stdout == '1'  else default_priority }}"
+    repo_priority: "{{ default_priority }}"
 
 # Pulp 2 requires Python 2.
 - name: Install Python 2 (Fedora)
@@ -173,11 +178,6 @@
       priority: "{{ repo_priority }}"
   when: pulp_build == "beta" or pulp_build == "stable"
 
-- name: Install yum-plugin-priorities
-  package:
-    name: yum-plugin-priorities
-    state: present
-  when: fips_state.stdout == '1'
 
 - name: Install Pulp Server
   package:
