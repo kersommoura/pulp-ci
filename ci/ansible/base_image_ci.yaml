@@ -1,0 +1,20 @@
+# ansible-playbook -i 10.0.149.73, -u cloud-user base_image_ci.yaml -e "rhn_password=${RHN_PASSWORD}" -e "rhn_pool=${RHN_POOL}" -e "rhn_username=${RHN_USERNAME}"
+---
+- hosts: all
+  vars:
+    enable_fips: false
+  roles:
+    - role: subscription-manager
+      when: ansible_distribution == 'RedHat'
+    - role: pulp-fips
+      when:
+        - enable_fips
+        - ansible_distribution == 'RedHat'
+  tasks:
+    - name: Install required packages.
+      package:
+        name:
+          - java
+          - git
+        state: present
+      become: yes
