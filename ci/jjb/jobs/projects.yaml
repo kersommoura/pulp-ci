@@ -41,6 +41,21 @@
     jobs:
     - pulp3-{build_version}-dev-{os}
 
+
+# Jobs using pulp3-dev.yaml for Pulp 3+ performance.
+- project:
+    name: pulp3-perf
+    build_version:
+    - master:
+        pulp_version: '3.0'
+        reverse_trigger: '3-master'
+    os:
+    - f29
+    reverse_trigger: '{build_version}-dev'
+    script-var: ''
+    jobs:
+    - pulp3-perf-{build_version}-{os}
+
 - project:
     name: pulp-fixtures-publisher
     jobs:
