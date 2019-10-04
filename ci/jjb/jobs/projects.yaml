@@ -14,8 +14,6 @@
 - project:
     name: pulp-dev-2-17+
     build_version:
-    - 2.21:
-        pulp_version: '2.21'
     - 2-master:
         pulp_version: '2.22'
         reverse_trigger: '2-master'
@@ -25,7 +23,7 @@
     reverse_trigger: '{build_version}-dev'
     script-var: ''
     jobs:
-    - pulp-{build_version}-dev-{os}
+    - pulp-{build_version}-pytest-{os}
 
 # Jobs using pulp3-dev.yaml for Pulp 3+.
 - project:

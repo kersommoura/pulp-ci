@@ -1,5 +1,5 @@
 - job:
-    name: pulp-smash-runner
+    name: pulp-smash-runner-pytest
     concurrent: true
     properties:
         - copyartifact:
@@ -59,7 +59,6 @@
                 variable {PULP_CA_CERT_PATH} will be replaced with the path
                 where the CA certificate was installed.
     properties:
-        - qe-ownership
         - discard-old-builds
     scm:
         - pulp-ci-github
@@ -128,9 +127,9 @@
             fi
             source ~/.virtualenvs/pulp-2-tests/bin/activate
             set +e
-            ## SATQE-5885: Reverting to attrs==19.1.0 w/breaking 19.2.0 change
             pip install attrs==19.1.0
-            py.test -v --color=yes --junit-xml=junit-report.xml --pyargs pulp_2_tests.tests
+            pip list
+            pytest -v --color=yes --junit-xml=junit-report.xml --pyargs pulp_2_tests.tests
             set -e
             test -f junit-report.xml
     publishers:
